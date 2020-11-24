@@ -51,7 +51,7 @@ def group(values: List[str], n: int) -> List[List[str]]:
             groupArray[i].append(values[j + (i * n)])
     return groupArray
 
-
+# GET ROW
 def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
     """Возвращает все значения для номера строки, указанной в pos
 
@@ -62,9 +62,9 @@ def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     >>> get_row([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (2, 0))
     ['.', '8', '9']
     """
-    pass
+    return grid[pos[0]]
 
-
+# GET COL
 def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
     """Возвращает все значения для номера столбца, указанного в pos
 
@@ -75,9 +75,10 @@ def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-    pass
+    col = [row[pos[1]] for row in grid]
+    return col
 
-
+# GET BLOCK
 def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
     """Возвращает все значения из квадрата, в который попадает позиция pos
 
@@ -89,7 +90,14 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    pass
+    rows = []
+    block = []
+    for  i in range(pos[0] // 3 * 3, pos[0] // 3 * 3 + 3):
+        rows.append(get_row(grid, (i, 0)))
+    for j in range(pos[1] // 3 * 3, pos[1] // 3 * 3 + 3):
+        block.append(get_col(rows, (0, j)))
+    block = [block[i][j] for j in range(3) for i in range(3)]
+    return block
 
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
