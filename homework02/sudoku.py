@@ -1,6 +1,7 @@
-from typing import Tuple, List, Set, Optional
+import pathlib
+import typing as tp
+from typing import *
 import random
-
 
 
 def read_sudoku(path: tp.Union[str, pathlib.Path]) -> tp.List[tp.List[str]]:
