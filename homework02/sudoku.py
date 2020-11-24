@@ -99,7 +99,7 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     block = [block[i][j] for j in range(3) for i in range(3)]
     return block
 
-
+# FIND EMPTY POSITIONS
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
     """Найти первую свободную позицию в пазле
 
@@ -110,9 +110,15 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     >>> find_empty_positions([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']])
     (2, 0)
     """
-    pass
+    pos = None
+    for i, row in enumerate(grid):
+        for j, this in enumerate(row):
+            if this == '.':
+                pos = (i, j)
+                break
+    return pos
 
-
+# FIND POSSIBLE VALUES
 def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.Set[str]:
     """Вернуть множество возможных значения для указанной позиции
 
@@ -124,7 +130,9 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     >>> values == {'2', '5', '9'}
     True
     """
-    pass
+    possible_values = {'1','2','3','4','5','6','7','8','9'}
+    set_values = set(get_col(grid,pos) + get_row(grid,pos) + get_block(grid,pos)) - {'.'}
+    return possible_values-set_values
 
 
 # SOLVE
