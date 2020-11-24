@@ -1,7 +1,6 @@
 import pathlib
 import typing as tp
 
-T = tp.TypeVar("T")
 
 
 def read_sudoku(path: tp.Union[str, pathlib.Path]) -> tp.List[tp.List[str]]:
@@ -162,6 +161,7 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
                 grid[pos[0]][pos[1]]='.'
     return []
 
+# CHECK SOLUTION
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """ Если решение solution верно, то вернуть True, в противном случае False """
     # TODO: Add doctests with bad puzzles
@@ -184,7 +184,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
                 break
     return isTrue
 
-
+# GENERATE SUDOKU
 def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     """Генерация судоку заполненного на N элементов
 
