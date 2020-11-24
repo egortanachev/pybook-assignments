@@ -165,7 +165,24 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """ Если решение solution верно, то вернуть True, в противном случае False """
     # TODO: Add doctests with bad puzzles
-    pass
+    isTrue = True
+    for i in range(9):
+        for j in range(9):
+            pos = (i, j)
+            try:
+                if sum(int(t) for t in get_col(solution, pos)) != 45 :
+                    isTrue = False
+                    break
+                if sum(int(t) for t in get_row(solution, pos)) != 45 :
+                    isTrue = False
+                    break
+                if sum(int(t) for t in get_block(solution, pos)) != 45 :
+                    isTrue = False
+                    break
+            except ValueError:
+                isTrue = False
+                break
+    return isTrue
 
 
 def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
@@ -190,7 +207,15 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    pass
+    if N > 81: N = 81
+    grid = [['.'] * 9 for j in range(9)]
+    rndpos = random.randint(0, 81)
+    grid[rndpos % 9][rndpos // 9] = str(random.choice(range(1, 10)))
+    grid = solve(grid)
+    emptyPositions = random.sample(range(81), 81 - N)
+    for i in emptyPositions:
+        grid[i % 9][i // 9]='.'
+    return grid
 
 
 if __name__ == "__main__":
