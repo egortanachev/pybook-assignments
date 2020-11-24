@@ -4,19 +4,11 @@ from typing import *
 import random
 
 
-def read_sudoku(path: tp.Union[str, pathlib.Path]) -> tp.List[tp.List[str]]:
+def read_sudoku(filename: str) -> List[List[str]]:
     """ Прочитать Судоку из указанного файла """
-    path = pathlib.Path(path)
-    with path.open() as f:
-        puzzle = f.read()
-    return create_grid(puzzle)
-
-
-def create_grid(puzzle: str) -> tp.List[tp.List[str]]:
-    digits = [c for c in puzzle if c in "123456789."]
+    digits = [c for c in open(filename).read() if c in '123456789.']
     grid = group(digits, 9)
     return grid
-
 
 def display(grid: tp.List[tp.List[str]]) -> None:
     """Вывод Судоку """
